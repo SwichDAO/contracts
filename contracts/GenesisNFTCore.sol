@@ -121,7 +121,7 @@ contract GenesisNFTCore is
         _requireMinted(tokenId);
 
         uint256 _cid = cid[tokenId] > 0 ? cid[tokenId] : 0;
-        return string(abi.encodePacked(baseURI, _cid));
+        return string(abi.encodePacked(baseURI, _cid.toString()));
     }
 
     function tokenIdTracker() public view returns (uint256) {

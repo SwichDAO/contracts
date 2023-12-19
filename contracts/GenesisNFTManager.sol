@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import {INFTCore} from "./interfaces/INFTCore.sol";
 
 contract GenesisNFTManager is ReentrancyGuard, AccessControlEnumerable {
+    using Strings for uint256;
     using Counters for Counters.Counter;
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
@@ -220,7 +222,9 @@ contract GenesisNFTManager is ReentrancyGuard, AccessControlEnumerable {
         _requestIdTracker.increment();
 
         uint256 randomness = uint256(
-            keccak256(abi.encodePacked(randomseed, requestId, _msgSender()))
+            keccak256(
+                abi.encodePacked(randomseed, requestId.toString(), _msgSender())
+            )
         );
         uint256 cid = _getCid(randomness);
         nftCore.reveal(tokenId, cid);
