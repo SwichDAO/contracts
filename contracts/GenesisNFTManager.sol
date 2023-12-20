@@ -99,7 +99,7 @@ contract GenesisNFTManager is ReentrancyGuard, AccessControlEnumerable {
         return nftCore.safeMintBatch(tos);
     }
 
-    function mintBatchNFT(
+    function mintNFTBatch(
         address[] calldata tos
     ) external onlyRole(MINTER_ROLE) returns (uint256[] memory) {
         return nftCore.safeMintBatch(tos);
