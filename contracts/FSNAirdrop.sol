@@ -4,6 +4,11 @@ pragma solidity ^0.8.0;
 import {EnumerableSet} from "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
+/**
+ * @title FSNAirdrop.
+ * @dev Using for FSN airdrop
+ * Addresses eligible to receive airdrops will be added by the owner
+ */
 contract FSNAirdrop is Ownable {
     using EnumerableSet for EnumerableSet.AddressSet;
 
@@ -12,11 +17,7 @@ contract FSNAirdrop is Ownable {
     EnumerableSet.AddressSet private _users;
 
     event Received(address sender, uint256 amount);
-    event EmergencyWithdraw(
-        address requester,
-        address recipient,
-        uint256 amount
-    );
+    event Withdraw(address requester, address recipient, uint256 amount);
     event SetReward(address user, uint256 amount);
 
     receive() external payable {
@@ -76,7 +77,7 @@ contract FSNAirdrop is Ownable {
         (bool success, ) = address(recipient).call{value: amount}(new bytes(0));
         require(success, "FSNAirdrop: insufficient FSN");
 
-        emit EmergencyWithdraw(msg.sender, recipient, amount);
+        emit Withdraw(msg.sender, recipient, amount);
     }
 
     function pendingRewards(address user) public view returns (uint256) {

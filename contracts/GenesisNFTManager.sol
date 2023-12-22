@@ -7,6 +7,12 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import {INFTCore} from "./interfaces/INFTCore.sol";
 
+/**
+ * @title GenesisNFTManager - GenesisNFTCore Manager
+ * @dev Higher level of GenesisNFTCore
+ * Implement business logic of Swich Genesis NFT
+ * This contract can be replaced by using transferOwnership function
+ */
 contract GenesisNFTManager is ReentrancyGuard, AccessControlEnumerable {
     using Strings for uint256;
     using Counters for Counters.Counter;

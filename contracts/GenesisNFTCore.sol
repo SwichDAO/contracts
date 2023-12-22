@@ -9,6 +9,12 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
+/**
+ * @title GenesisNFTCore
+ * @dev Ownership must be transferred to GenesisNFTManager
+ * Implement core logic of Swich Genesis NFT
+ * This contract cannot be upgraded
+ */
 contract GenesisNFTCore is
     Ownable,
     ERC721Enumerable,

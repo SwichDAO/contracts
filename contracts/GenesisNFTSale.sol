@@ -8,6 +8,11 @@ import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {INFTManager} from "./interfaces/INFTManager.sol";
 
+/**
+ * @title GenesisNFTSale
+ * Swich Genesis NFT sale
+ * Owner can withdraw raising fund from this contract
+ */
 contract GenesisNFTSale is ReentrancyGuard, Ownable {
     using SafeERC20 for IERC20;
 
