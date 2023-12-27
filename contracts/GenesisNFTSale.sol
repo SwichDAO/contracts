@@ -125,13 +125,22 @@ contract GenesisNFTSale is ReentrancyGuard, Ownable {
 
         sold += amount;
         soldByToken[token] += amount;
+
+        uint256 refundValue = msg.value;
         if (token != fsn) {
             IERC20(token).safeTransferFrom(msg.sender, address(this), total);
         } else {
             require(msg.value >= total, "GenesisNFTSale: insuffient payment");
+            refundValue -= total;
         }
 
         tokenIds = INFTManager(nftManager).mintNFTs(msg.sender, amount);
+        if (refundValue > 0) {
+            (bool success, ) = address(msg.sender).call{value: refundValue}(
+                new bytes(0)
+            );
+            require(success, "GenesisNFTSale: insufficient FSN");
+        }
 
         emit Purchase(token, amount);
     }
